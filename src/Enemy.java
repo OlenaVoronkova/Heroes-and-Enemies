@@ -31,4 +31,20 @@ public class Enemy {
     public int getMana() {
         return mana;
     }
+
+    public int damage() {
+        return damage;
+    }
+
+    public String getSkill() {
+        return skill;
+    }
+
+    public void setHP(int hp) {
+        this.hP = hp;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
 }

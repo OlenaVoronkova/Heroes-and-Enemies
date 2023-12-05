@@ -6,10 +6,11 @@ public class Hero {
     public int intelligence;
     public int healthPoints;
     public int mana;
+    public int damage;
 
 
 
-    public Hero(String name, String race, int strenght, int agility, int intelligence, int healthPoints, int mana){
+    public Hero(String name, String race, int strenght, int agility, int intelligence, int healthPoints, int mana, int damage){
        this.name = name;
        this.race = race;
        this.strenght = strenght;
@@ -17,6 +18,7 @@ public class Hero {
        this.intelligence = intelligence;
        this.healthPoints = healthPoints;
        this.mana = mana;
+       this.damage = damage;
     }
     public String getName(){
         return name;
@@ -44,5 +46,11 @@ public class Hero {
         return mana;
     }
 
+    public int getDamage() {
+        return damage;
+    }
 
+    public void setHealthPoints(int healthPoints) {
+        this.healthPoints = healthPoints;
+    }
 }

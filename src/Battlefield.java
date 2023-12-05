@@ -7,19 +7,29 @@ public class Battlefield {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        Hero legolas = new Hero("Legolas", "elf", 10, 20, 15, 100, 200);
-        Hero gimli = new Hero("Gimli", "dwarf", 20, 10, 15, 200, 150);
-        Hero aragorn = new Hero("Aragorn", "man", 10, 15, 20, 100, 200);
+        Hero legolas = new Hero("Legolas", "elf", 10, 20, 15, 100, 200, 50);
+        Hero gimli = new Hero("Gimli", "dwarf", 20, 10, 15, 200, 150, 30);
+        Hero aragorn = new Hero("Aragorn", "man", 10, 15, 20, 100, 200, 40);
 
         String legolasName = legolas.getName();
         String gimliName = gimli.getName();
         String aragornName = aragorn.getName();
 
-        System.out.println("Finally, you're on the battlefield, my precious. Now, choose the fitting hero, my precious.");
-        System.out.println(legolasName);
-        System.out.println(gimliName);
-        System.out.println(aragornName);
-        String heroName = scanner.nextLine();
+        System.out.println("Finally, you're on the battlefield, my precious. Now, I choose the fitting hero for you, my precious.");
+
+        ArrayList<String> heroList = new ArrayList<>();
+
+        heroList.add("Legolas");
+        heroList.add("Gimli");
+        heroList.add("Aragorn");
+
+        List<String> selectedHero = selectRandomHero(heroList, 1);
+
+        System.out.println("Selected hero:");
+        for (String hero : selectedHero) {
+            System.out.println(hero);
+            System.out.println("Your hero is " + hero + ".'");
+        }
 
         Skill powerShot = new Skill("PowerShot", 10, 20);
         Skill blizzard = new Skill("Blizzard", 30, 40);
@@ -63,7 +73,7 @@ public class Battlefield {
         System.out.println("Selected skill:");
         for (String skill : selectedSkills) {
             System.out.println(skill);
-            System.out.println("Your hero is " + heroName + " and your skill is " + skill + ".'");
+            System.out.println("Your  skill is " + skill + ".'");
 
         }
 
@@ -83,10 +93,35 @@ public class Battlefield {
             System.out.println(enemy);
             System.out.println("Your enemy is " + enemy + ". Good luck!");
 
+
+
+            while (aragorn.getHealthPoints() > 0 && shelob.getHP() > 0){
+                List<String> heroName = selectedHero;
+                List<String> heroSkill = selectedSkills;
+                int heroDamage = aragorn.getDamage();
+                System.out.println("Your hero is " +selectedHero+ " his skill is " +selectedSkills+ " , his damage is " +heroDamage+ " ." );
+
+                List<String> selectEnemy = selectedEnemy;
+                String enemySkill = shelob.skill;
+                int shelobDamage = shelob.getDamage();
+                System.out.println("Your enemy is " +selectedEnemy+  "her/his skill is " +enemySkill+ " and her/his damage is " +shelobDamage+ " . Good luck!" );
+
+                int newHeroHPValue = aragorn.getHealthPoints() - shelobDamage;
+                int newEnemyHPValue = shelob.getHP() - aragorn.damage;
+                aragorn.setHealthPoints(newHeroHPValue);
+                shelob.setHP(newEnemyHPValue);
+
+                System.out.println("There is a new value of Aragorn hp: "+newHeroHPValue+ " .");
+                System.out.println("There is a new value of Shelob hp: "+newEnemyHPValue+ " .");
+
+            }
+
+
         }
 
     }
 
+    
     public static List<String> selectRandomSkills(List<String> skillsList, int count) {
         List<String> selectedSkills = new ArrayList<>();
         Random rand = new Random();
@@ -115,5 +150,19 @@ public class Battlefield {
         }
 
         return selectedEnemy;
+    }
+    public static List<String> selectRandomHero(List<String> heroList, int count) {
+        List<String> selectedHero = new ArrayList<>();
+        Random rand = new Random();
+
+        while (selectedHero.size() < count) {
+            int randomIndex = rand.nextInt(heroList.size());
+            String hero = heroList.get(randomIndex);
+            if (!selectedHero.contains(hero)) {
+                selectedHero.add(hero);
+            }
+        }
+
+        return selectedHero;
     }
 }
