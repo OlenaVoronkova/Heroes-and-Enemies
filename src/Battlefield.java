@@ -28,7 +28,7 @@ public class Battlefield {
         System.out.println("Selected hero:");
         for (String hero : selectedHero) {
             System.out.println(hero);
-            System.out.println("Your hero is " + hero + ".'");
+
         }
 
         Skill powerShot = new Skill("PowerShot", 10, 20);
@@ -55,25 +55,24 @@ public class Battlefield {
         System.out.println("Now, by chance, you'll be getting 1 skill, my precious.");
 
 
-        ArrayList<String> skillsList = new ArrayList<>();
+        ArrayList<Skill> skillsList = new ArrayList<>();
 
-        skillsList.add("PowerShot");
-        skillsList.add("Blizzard");
-        skillsList.add("ShadowVeil");
-        skillsList.add("ArcaneSurge");
-        skillsList.add("CelestialFury");
-        skillsList.add("BlazingTempest");
-        skillsList.add("FrostNova");
-        skillsList.add("ThunderStrike");
-        skillsList.add("NaturesEmbrace");
+        skillsList.add(new Skill("PowerShot", 10, 20));
+        skillsList.add(new Skill("Blizzard", 30, 40));
+        skillsList.add(new Skill("Shadow Veil", 5, 15));
+        skillsList.add(new Skill("Arcane Surge", 15, 25));
+        skillsList.add(new Skill("Celestial Fury", 20, 30));
+        skillsList.add(new Skill("Blazing Tempest", 25, 35));
+        skillsList.add(new Skill("Frost Nova", 35, 45));
+        skillsList.add(new Skill("ThunderStrike", 40, 50));
+        skillsList.add(new Skill("Nature's Embrace", 45, 55));
 
 
-        List<String> selectedSkills = selectRandomSkills(skillsList, 1);
+        List<Skill> selectedSkills = selectRandomSkills(skillsList, 1);
 
-        System.out.println("Selected skill:");
-        for (String skill : selectedSkills) {
-            System.out.println(skill);
-            System.out.println("Your  skill is " + skill + ".'");
+
+        for (Skill skill : selectedSkills) {
+            System.out.println("Your  skill is " + skill.name + ".");
 
         }
 
@@ -94,41 +93,40 @@ public class Battlefield {
             System.out.println("Your enemy is " + enemy + ". Good luck!");
 
 
-
-            while (aragorn.getHealthPoints() > 0 && shelob.getHP() > 0){
+            while (aragorn.getHealthPoints() > 0 && shelob.getHP() > 0) {
                 List<String> heroName = selectedHero;
-                List<String> heroSkill = selectedSkills;
-                int heroDamage = aragorn.getDamage();
-                System.out.println("Your hero is " +selectedHero+ " his skill is " +selectedSkills+ " , his damage is " +heroDamage+ " ." );
+                for (Skill skill : selectedSkills) {
+                    int heroDamage = aragorn.getDamage();
+                    System.out.println("Your hero is " + heroName + " his skill is " + skill.name + ", his damage is " + heroDamage + " .");
+                }
+            List<String> selectEnemy = selectedEnemy;
+            String enemySkill = shelob.skill;
+            int shelobDamage = shelob.getDamage();
+            System.out.println("Your enemy is " + selectEnemy + " her/his skill is " + enemySkill + " and her/his damage is " + shelobDamage + " . Good luck!");
 
-                List<String> selectEnemy = selectedEnemy;
-                String enemySkill = shelob.skill;
-                int shelobDamage = shelob.getDamage();
-                System.out.println("Your enemy is " +selectedEnemy+  "her/his skill is " +enemySkill+ " and her/his damage is " +shelobDamage+ " . Good luck!" );
+            int newHeroHPValue = aragorn.getHealthPoints() - shelobDamage;
+            int newEnemyHPValue = shelob.getHP() - aragorn.damage;
+            aragorn.setHealthPoints(newHeroHPValue);
+            shelob.setHP(newEnemyHPValue);
 
-                int newHeroHPValue = aragorn.getHealthPoints() - shelobDamage;
-                int newEnemyHPValue = shelob.getHP() - aragorn.damage;
-                aragorn.setHealthPoints(newHeroHPValue);
-                shelob.setHP(newEnemyHPValue);
 
-                System.out.println("There is a new value of Aragorn hp: "+newHeroHPValue+ " .");
-                System.out.println("There is a new value of Shelob hp: "+newEnemyHPValue+ " .");
-
-            }
-
+            System.out.println("There is a new value of Aragorn hp: " + newHeroHPValue + " .");
+            System.out.println("There is a new value of Shelob hp: " + newEnemyHPValue + " .");
 
         }
 
+
     }
 
-    
-    public static List<String> selectRandomSkills(List<String> skillsList, int count) {
-        List<String> selectedSkills = new ArrayList<>();
+}
+
+    public static List<Skill> selectRandomSkills(List<Skill> skillsList, int count) {
+        List<Skill> selectedSkills = new ArrayList<>();
         Random rand = new Random();
 
         while (selectedSkills.size() < count) {
             int randomIndex = rand.nextInt(skillsList.size());
-            String skill = skillsList.get(randomIndex);
+            Skill skill = skillsList.get(randomIndex);
             if (!selectedSkills.contains(skill)) {
                 selectedSkills.add(skill);
             }
